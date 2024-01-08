@@ -20,7 +20,14 @@ public class btnComandos : MonoBehaviour
         Application.Quit();
     }
 
-
+    public void jogarNovamente()
+    {
+        int idCena = PlayerPrefs.GetInt("idTema");
+        if (idCena != 0)
+        {
+            SceneManager.LoadScene(idCena.ToString());
+        }
+    }
 
 
 }

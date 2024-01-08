@@ -24,14 +24,16 @@ public class temaInfo : MonoBehaviour
     public Text                 idTemaTxt; // campo de texto na interface
     public GameObject[]         estrela;
 
-    public int                  tempNota;
+    private int                  notaFinal;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
         temaScene = FindObjectOfType(typeof(temaScene)) as temaScene;
 
+        notaFinal = PlayerPrefs.GetInt("notaFinal_" + idTema.ToString());
         idTemaTxt.text = idTema.ToString();
 
         estrelas(); // chama o método estrelas
@@ -44,6 +46,13 @@ public class temaInfo : MonoBehaviour
         temaScene.nomeTemaTxt.text = nomeTema;
         temaScene.nomeTemaTxt.color = corTema;
 
+        PlayerPrefs.SetInt("idTema", idTema);
+        PlayerPrefs.SetString("nomeTema", nomeTema);
+        PlayerPrefs.SetInt("notaMinUmEstrela", notaMinimaUmEstrela);
+        PlayerPrefs.SetInt("notaMinDuasEstrelas", notaMinimaDuasEstrela);
+
+        temaScene.btnJogar.interactable = true;
+
     }
 
 
@@ -55,14 +64,17 @@ public class temaInfo : MonoBehaviour
             e.SetActive(false);
         }
 
+       
+
+
         int nEstrelas = 0;
 
-        if(tempNota == 10) { 
+        if(notaFinal == 10) { 
             nEstrelas = 3;
-        }else if(tempNota >= notaMinimaDuasEstrela)
+        }else if(notaFinal >= notaMinimaDuasEstrela)
         {
             nEstrelas = 2;
-        }else if(tempNota >= notaMinimaUmEstrela)
+        }else if(notaFinal >= notaMinimaUmEstrela)
         {
             nEstrelas = 1;
         }

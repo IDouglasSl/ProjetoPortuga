@@ -19,11 +19,14 @@ public class modoJogo1 : MonoBehaviour
 
     [Header("Configuração dos botões")]
     public Button[]             botoes;
+    public Color                corAcerto, corErro;
 
     [Header("Configuração das Modo de Jogo")]
     public bool perguntasAleatorias;
     public bool jogarComTempo;
     public float tempoResponder;
+    public bool mostrarCorreta;
+    public int qtdPiscar;
 
     
     [Header("Configuração das perguntas")]
@@ -44,38 +47,44 @@ public class modoJogo1 : MonoBehaviour
     public float                qtdRespondida; // quantidade de perguntas RESPONDIDAS. O tipo é float por causa da divisão para encontrar o percentual da barra de progresso
     private float               percProgresso; // percentual da barra de progresso
     private float               percTempo; // percentual da barra de tempo
-    private float               tempTime; 
-    private float               notaFinal; 
-    private float               valorQuestao;
+    private float               tempTime; // váriavel para auxiliar atualização do tempo
+    public float                notaFinal; 
+    private float               valorQuestao; // valor de cada questão
     private int                 qtdAcertos;
     private int                 notaMinimaUmEstrela, notaMinimaDuasEstrela, nEstrelas;
-
-
-
+    private int                 idTema; // identificador do tema
+    private bool                fimPartida; // variável para identificar quando a aprtida encerrou
+    private int                 idBtnCorreto; // qual botão´será o correto
+    private bool                exibindoCorreta; // vai evitar que o qualquer botão seja pressionado enquanto a corrotina mostra a resposta certa
 
     // Start is called before the first frame update
     void Start()
     {
+        idTema = PlayerPrefs.GetInt("idTema");
+        notaMinimaUmEstrela = PlayerPrefs.GetInt("notaMinUmEstrela");
+        notaMinimaDuasEstrela = PlayerPrefs.GetInt("notaMinDuasEstrelas");
+        nomeTemaTXT.text = PlayerPrefs.GetString("nomeTema");
+        
         barraTempo.SetActive(false);
 
         progressaoBarra();
         montarListaPerguntas();
 
-        valorQuestao = 10 /(float) perguntas.Length; // precisa converter para float para as quentões valerem fração
+        valorQuestao = 10 /(float) perguntas.Length; // precisa converter para float para as questões valerem fração
 
+        fimPartida = false;
         controleBarratempo();
 
         paineis[0].SetActive(true);
         paineis[1].SetActive(false);
 
-        notaMinimaUmEstrela = 5;
-        notaMinimaDuasEstrela = 7;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (jogarComTempo)
+        if (jogarComTempo && !exibindoCorreta && !fimPartida )
         {
             tempTime += Time.deltaTime;
             controleBarratempo();
@@ -92,18 +101,49 @@ public class modoJogo1 : MonoBehaviour
 
     public void responder(string alternativa)
     {
+        if (exibindoCorreta) { return; }
         if (correta[idResponder] == alternativa)
         {
-            print("Correta");
             qtdAcertos += 1;
+        }
+
+
+        switch (correta[idResponder])
+        {
+            case "A":
+                idBtnCorreto = 0;
+                break;
+            case "B":
+                idBtnCorreto = 1;
+                break;
+            case "C":
+                idBtnCorreto = 2;
+                break;
+            case "D":
+                idBtnCorreto = 3;
+                break;
+        }
+
+
+
+        if (mostrarCorreta) // para saber se vai mostrar o item certo ou não
+        {
+           foreach(Button b in botoes) // fará todos os botões ficarem vermelho
+            {
+                b.image.color = corErro;
+            }
+            exibindoCorreta = true;
+            botoes[idBtnCorreto].image.color = corAcerto; // fará com que o botão correto fique verde
+            StartCoroutine("mostrarAlternativaCorreta");
+
         }
         else
         {
-            print("Errou");
+            proximaPergunta();
         }
 
         
-        proximaPergunta();
+        
     }
 
     public void proximaPergunta()
@@ -120,7 +160,6 @@ public class modoJogo1 : MonoBehaviour
         {
             perguntaTXT.text = perguntas[idResponder];
            
-            
         }
         else
         {
@@ -140,7 +179,6 @@ public class modoJogo1 : MonoBehaviour
 
     }
 
-
     void controleBarratempo()
     {
         if (jogarComTempo) // se for com tempo, a barra de tempo aparece
@@ -158,8 +196,15 @@ public class modoJogo1 : MonoBehaviour
 
     void calcularNotaFinal()
     {
+        fimPartida = true;
         notaFinal = Mathf.RoundToInt(qtdAcertos * valorQuestao); // a função Mathf arredonda o número
-       
+
+        if (notaFinal > PlayerPrefs.GetInt("notaFinal_" + idTema.ToString())) // só armazena a nova nova nota no playerprefs se for maior que a anterior
+        {
+            PlayerPrefs.SetInt("notaFinal_" + idTema.ToString(), (int)notaFinal);
+
+        }
+
 
         if (notaFinal == 10){nEstrelas = 3;   }
         else if (notaFinal >= notaMinimaDuasEstrela){nEstrelas = 2;}
@@ -186,4 +231,24 @@ public class modoJogo1 : MonoBehaviour
         paineis[0].SetActive(false);
         paineis[1].SetActive(true);
     }
+
+
+
+    IEnumerator mostrarAlternativaCorreta()
+    {
+        for(int i = 0; i < qtdPiscar; i++){
+            botoes[idBtnCorreto].image.color = corAcerto;
+            yield return new WaitForSeconds(0.1f);
+            botoes[idBtnCorreto].image.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        foreach (Button b in botoes) // fará todos os botões ficarem vermelho
+        {
+            b.image.color = Color.white;
+        }
+        exibindoCorreta = false;
+        proximaPergunta();
+    }
+
 }

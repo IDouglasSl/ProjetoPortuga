@@ -742,7 +742,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 321230557}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 832088986}
+        m_TargetAssemblyTypeName: temaScene, Assembly-CSharp
+        m_MethodName: jogar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &321230557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1398,6 +1410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nomeTemaTxt: {fileID: 1379842773}
+  btnJogar: {fileID: 321230556}
 --- !u!4 &832088987
 Transform:
   m_ObjectHideFlags: 0
@@ -1669,7 +1682,7 @@ MonoBehaviour:
   - {fileID: 230170173}
   - {fileID: 387233408}
   - {fileID: 646042954}
-  tempNota: 7
+  tempNota: 0
 --- !u!114 &1236539273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,7 +1937,7 @@ MonoBehaviour:
   - {fileID: 104890707}
   - {fileID: 326920999}
   - {fileID: 2112551453}
-  tempNota: 9
+  tempNota: 0
 --- !u!1 &1379842769
 GameObject:
   m_ObjectHideFlags: 0
