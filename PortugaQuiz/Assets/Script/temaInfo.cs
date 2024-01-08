@@ -57,8 +57,7 @@ public class temaInfo : MonoBehaviour
 
         int nEstrelas = 0;
 
-        if(tempNota == 10)
-{
+        if(tempNota == 10) { 
             nEstrelas = 3;
         }else if(tempNota >= notaMinimaDuasEstrela)
         {
