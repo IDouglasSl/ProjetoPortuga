@@ -376,7 +376,7 @@ RectTransform:
   m_Children:
   - {fileID: 1686264797}
   m_Father: {fileID: 557379194}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1062,8 +1062,8 @@ RectTransform:
   - {fileID: 1469191149}
   - {fileID: 1020235681}
   - {fileID: 1064931389}
-  - {fileID: 111706004}
   - {fileID: 807466077}
+  - {fileID: 111706004}
   - {fileID: 780765232}
   - {fileID: 1038899308}
   - {fileID: 1359783944}
@@ -1240,7 +1240,7 @@ RectTransform:
   m_Children:
   - {fileID: 1892865898}
   m_Father: {fileID: 557379194}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1860,9 +1860,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: cb836759103290345a144b2ba5ad21bd, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 63
+    m_BestFit: 1
+    m_MinSize: 45
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1946,25 +1946,31 @@ MonoBehaviour:
   botoes:
   - {fileID: 175791613}
   - {fileID: 264542291}
-  perguntasAleatorias: 0
+  corAcerto: {r: 0.25096273, g: 0.9716981, b: 0.1512549, a: 1}
+  corErro: {r: 0.9811321, g: 0.18974723, b: 0.18974723, a: 1}
+  perguntasAleatorias: 1
   jogarComTempo: 1
   tempoResponder: 3
+  mostrarCorreta: 1
+  qtdPiscar: 5
   perguntas:
   - "O nome do irm\xE3o do M\xE1rio \xE9 Luigi?"
   - "Em Super metroid, o personagem \xE9 um homem?"
-  - "Em Super metroid, o personagem \xE9 um homem?"
-  - "Em Super metroid, o personagem \xE9 um homem?"
+  - "Kong do jogo Donkey Kong \xE9 o nome de um cachorro?"
+  - "Castlevania \xE9 um jogo estilo metroidvania?"
   correta:
   - A
   - B
   - B
-  - B
+  - A
+  qtdperguntas: 3
+  listaPerguntas: 
   paineis:
   - {fileID: 1680431402}
   - {fileID: 557379193}
   estrela:
-  - {fileID: 1686264796}
   - {fileID: 1892865897}
+  - {fileID: 1686264796}
   - {fileID: 340269003}
   mensagem1:
   - Vixe!!!
@@ -1982,6 +1988,7 @@ MonoBehaviour:
   - {r: 0.990566, g: 0.9672036, b: 0.54668033, a: 1}
   - {r: 1, g: 0.95686066, b: 0, a: 1}
   qtdRespondida: 0
+  notaFinal: 0
 --- !u!1 &1359783943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2856,7 +2863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1680431403
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2933,7 +2940,7 @@ GameObject:
   - component: {fileID: 1686264799}
   - component: {fileID: 1686264798}
   m_Layer: 5
-  m_Name: A
+  m_Name: B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3220,7 +3227,7 @@ GameObject:
   - component: {fileID: 1892865900}
   - component: {fileID: 1892865899}
   m_Layer: 5
-  m_Name: B
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

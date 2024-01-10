@@ -32,6 +32,10 @@ public class modoJogo1 : MonoBehaviour
     [Header("Configuração das perguntas")]
     public string[]             perguntas;
     public string[]             correta;
+    public int                  qtdperguntas;
+    public List<int>            listaPerguntas; // necessário para que a s perguntas venham de form aleatória
+
+
 
     [Header("Configuração dos Paineis")]
     public GameObject[]         paineis;
@@ -67,10 +71,10 @@ public class modoJogo1 : MonoBehaviour
         
         barraTempo.SetActive(false);
 
-        progressaoBarra();
         montarListaPerguntas();
+        progressaoBarra();
 
-        valorQuestao = 10 /(float) perguntas.Length; // precisa converter para float para as questões valerem fração
+        valorQuestao = 10 /(float) listaPerguntas.Count; // precisa converter para float para as questões valerem fração
 
         fimPartida = false;
         controleBarratempo();
@@ -95,20 +99,55 @@ public class modoJogo1 : MonoBehaviour
 
     public void montarListaPerguntas()
     {
-        perguntaTXT.text = perguntas[idResponder];
+        if (perguntasAleatorias)
+        {
+            bool addPergunta = true;
+
+            if(qtdperguntas > perguntas.Length) { qtdperguntas = perguntas.Length; }
+            while(listaPerguntas.Count < qtdperguntas)
+            {
+                addPergunta = true;
+                int rand = Random.Range(0, perguntas.Length);
+                
+                
+                foreach (int idP in listaPerguntas)
+                {
+                    if(idP == rand)
+                    {
+                        addPergunta = false;
+                    }
+                }
+                
+                if (addPergunta)
+                {
+                    listaPerguntas.Add(rand);
+                }
+
+            }
+
+        }
+        else
+        {
+            for( int i = 0; i < perguntas.Length; i++)
+            {
+                listaPerguntas.Add(i);
+            }
+        }
+
+        perguntaTXT.text = perguntas[listaPerguntas[idResponder]];
     }
 
 
     public void responder(string alternativa)
     {
         if (exibindoCorreta) { return; }
-        if (correta[idResponder] == alternativa)
+        if (correta[listaPerguntas[idResponder]] == alternativa)
         {
             qtdAcertos += 1;
         }
 
 
-        switch (correta[idResponder])
+        switch (correta[listaPerguntas[idResponder]])
         {
             case "A":
                 idBtnCorreto = 0;
@@ -156,9 +195,9 @@ public class modoJogo1 : MonoBehaviour
         progressaoBarra();
 
 
-        if (idResponder < perguntas.Length) // o idResponder não pode ultrapassar o quantitativo de perguntas
+        if (idResponder < listaPerguntas.Count) // o idResponder não pode ultrapassar o quantitativo de perguntas
         {
-            perguntaTXT.text = perguntas[idResponder];
+            perguntaTXT.text = perguntas[listaPerguntas[idResponder]];
            
         }
         else
@@ -172,7 +211,7 @@ public class modoJogo1 : MonoBehaviour
     void progressaoBarra() // calcula a progressão da barra
     {
 
-        inforRespostaTXT.text = "Pergunta " + (qtdRespondida+1) + " de " + perguntas.Length;
+        inforRespostaTXT.text = "Pergunta " + (qtdRespondida+1) + " de " + listaPerguntas.Count;
 
         percProgresso = (qtdRespondida+1) / perguntas.Length;
         barraProgresso.transform.localScale = new Vector3(percProgresso, 1, 1);
