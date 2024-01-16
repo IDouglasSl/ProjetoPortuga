@@ -13,6 +13,13 @@ public class modoJogo1 : MonoBehaviour
     public Text                 msg1TXT;
     public Text                 msg2TXT;
 
+    [Header("Configuração dos textos alternativas")]
+    public Text                 altAtxt;
+    public Text                 altBtxt;
+    public Text                 altCtxt;
+    public Text                 altDtxt;
+
+
     [Header("Configuração das barras")]
     public GameObject           barraProgresso;
     public GameObject           barraTempo;
@@ -22,6 +29,7 @@ public class modoJogo1 : MonoBehaviour
     public Color                corAcerto, corErro;
 
     [Header("Configuração das Modo de Jogo")]
+    public bool utilizarAltenativa;
     public bool perguntasAleatorias;
     public bool jogarComTempo;
     public float tempoResponder;
@@ -35,7 +43,12 @@ public class modoJogo1 : MonoBehaviour
     public int                  qtdperguntas;
     public List<int>            listaPerguntas; // necessário para que a s perguntas venham de form aleatória
 
-
+    [Header("Configuração das alternativas")]
+    
+    public string[]             altenativaA;
+    public string[]             altenativaB;
+    public string[]             altenativaC;
+    public string[]             altenativaD;
 
     [Header("Configuração dos Paineis")]
     public GameObject[]         paineis;
@@ -135,6 +148,14 @@ public class modoJogo1 : MonoBehaviour
         }
 
         perguntaTXT.text = perguntas[listaPerguntas[idResponder]];
+
+        if (utilizarAltenativa)
+        {
+            altAtxt.text = altenativaA[listaPerguntas[idResponder]];
+            altBtxt.text = altenativaB[listaPerguntas[idResponder]];
+            altCtxt.text = altenativaC[listaPerguntas[idResponder]];
+            altDtxt.text = altenativaD[listaPerguntas[idResponder]];
+        }
     }
 
 
@@ -198,7 +219,15 @@ public class modoJogo1 : MonoBehaviour
         if (idResponder < listaPerguntas.Count) // o idResponder não pode ultrapassar o quantitativo de perguntas
         {
             perguntaTXT.text = perguntas[listaPerguntas[idResponder]];
-           
+
+            if (utilizarAltenativa)
+            {
+                altAtxt.text = altenativaA[listaPerguntas[idResponder]];
+                altBtxt.text = altenativaB[listaPerguntas[idResponder]];
+                altCtxt.text = altenativaC[listaPerguntas[idResponder]];
+                altDtxt.text = altenativaD[listaPerguntas[idResponder]];
+            }
+
         }
         else
         {
