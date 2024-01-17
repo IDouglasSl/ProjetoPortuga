@@ -8,6 +8,7 @@ public class modoJogo1 : MonoBehaviour
     [Header("Configuração dos textos")]
     public Text                 nomeTemaTXT;
     public Text                 perguntaTXT;
+    public Image                perguntaIMG;
     public Text                 inforRespostaTXT;
     public Text                 notaFinalTXT;
     public Text                 msg1TXT;
@@ -29,6 +30,7 @@ public class modoJogo1 : MonoBehaviour
     public Color                corAcerto, corErro;
 
     [Header("Configuração das Modo de Jogo")]
+    public bool perguntasComIMG;
     public bool utilizarAltenativa;
     public bool perguntasAleatorias;
     public bool jogarComTempo;
@@ -38,6 +40,7 @@ public class modoJogo1 : MonoBehaviour
 
     
     [Header("Configuração das perguntas")]
+    public Sprite[]             perguntasIMG;
     public string[]             perguntas;
     public string[]             correta;
     public int                  qtdperguntas;
@@ -84,7 +87,16 @@ public class modoJogo1 : MonoBehaviour
         
         barraTempo.SetActive(false);
 
-        montarListaPerguntas();
+        if (perguntasComIMG)
+        {
+            montarListaPerguntasIMG(); // monstar as perguntas com imagens
+
+        }
+        else
+        {
+            montarListaPerguntas(); // montar as perguntas com texto
+
+        }
         progressaoBarra();
 
         valorQuestao = 10 /(float) listaPerguntas.Count; // precisa converter para float para as questões valerem fração
@@ -110,19 +122,25 @@ public class modoJogo1 : MonoBehaviour
         }
     }
 
+    // Respo´nsável por montar a lista de pergunta a serem respondidas.
+    
     public void montarListaPerguntas()
     {
-        if (perguntasAleatorias)
+        if (perguntasAleatorias) // modo aleatório
         {
             bool addPergunta = true;
 
-            if(qtdperguntas > perguntas.Length) { qtdperguntas = perguntas.Length; }
-            while(listaPerguntas.Count < qtdperguntas)
+       
+            if (qtdperguntas > perguntas.Length) { qtdperguntas = perguntas.Length; }
+
+
+            while (listaPerguntas.Count < qtdperguntas)
             {
                 addPergunta = true;
+
                 int rand = Random.Range(0, perguntas.Length);
                 
-                
+                       
                 foreach (int idP in listaPerguntas)
                 {
                     if(idP == rand)
@@ -139,15 +157,21 @@ public class modoJogo1 : MonoBehaviour
             }
 
         }
-        else
+        else // modo não aleatório
         {
-            for( int i = 0; i < perguntas.Length; i++)
-            {
-                listaPerguntas.Add(i);
-            }
+
+                for (int i = 0; i < perguntas.Length; i++)
+                {
+                    listaPerguntas.Add(i);
+                }
+           
+            
         }
 
+       
         perguntaTXT.text = perguntas[listaPerguntas[idResponder]];
+
+        
 
         if (utilizarAltenativa)
         {
@@ -158,16 +182,81 @@ public class modoJogo1 : MonoBehaviour
         }
     }
 
+    //Montar perguntas com Imagem
+    public void montarListaPerguntasIMG()
+    {
+        if (perguntasAleatorias) // modo aleatório
+        {
+            bool addPergunta = true;
 
+            if (qtdperguntas > perguntasIMG.Length) { qtdperguntas = perguntasIMG.Length; }
+
+          
+
+
+
+            while (listaPerguntas.Count < qtdperguntas)
+            {
+                addPergunta = true;
+
+                int rand = Random.Range(0, perguntasIMG.Length);
+               
+
+
+
+
+                foreach (int idP in listaPerguntas)
+                {
+                    if (idP == rand)
+                    {
+                        addPergunta = false;
+                    }
+                }
+
+                if (addPergunta)
+                {
+                    listaPerguntas.Add(rand);
+                }
+
+            }
+
+        }
+        else // modo não aleatório
+        {
+
+                for (int i = 0; i < perguntasIMG.Length; i++)
+                {
+                    listaPerguntas.Add(i);
+                }
+            
+
+
+        }
+
+         perguntaIMG.sprite = perguntasIMG[listaPerguntas[idResponder]];
+
+        if (utilizarAltenativa)
+        {
+            altAtxt.text = altenativaA[listaPerguntas[idResponder]];
+            altBtxt.text = altenativaB[listaPerguntas[idResponder]];
+            altCtxt.text = altenativaC[listaPerguntas[idResponder]];
+            altDtxt.text = altenativaD[listaPerguntas[idResponder]];
+        }
+    }
+
+    // FUnção responsável por analisar as respsotas do jogador
     public void responder(string alternativa)
     {
-        if (exibindoCorreta) { return; }
+        if (exibindoCorreta) { return; } // verifica se é para mostrar ou não as respostas
+        
+        
+        // verifica se a respsota está correta e aumenta um acerto
         if (correta[listaPerguntas[idResponder]] == alternativa)
         {
             qtdAcertos += 1;
         }
 
-
+        // indica qual a opção é a correta
         switch (correta[listaPerguntas[idResponder]])
         {
             case "A":
@@ -197,7 +286,7 @@ public class modoJogo1 : MonoBehaviour
             StartCoroutine("mostrarAlternativaCorreta");
 
         }
-        else
+        else // chama aproxima pergunta
         {
             proximaPergunta();
         }
@@ -206,6 +295,7 @@ public class modoJogo1 : MonoBehaviour
         
     }
 
+    //Função responsável por chamar a próxima pergunta
     public void proximaPergunta()
     {
         idResponder += 1;
@@ -218,7 +308,16 @@ public class modoJogo1 : MonoBehaviour
 
         if (idResponder < listaPerguntas.Count) // o idResponder não pode ultrapassar o quantitativo de perguntas
         {
-            perguntaTXT.text = perguntas[listaPerguntas[idResponder]];
+            if (perguntasComIMG)
+            {
+                perguntaIMG.sprite = perguntasIMG[listaPerguntas[idResponder]];
+
+            }
+            else
+            {
+                perguntaTXT.text = perguntas[listaPerguntas[idResponder]];
+
+            }
 
             if (utilizarAltenativa)
             {
@@ -229,7 +328,7 @@ public class modoJogo1 : MonoBehaviour
             }
 
         }
-        else
+        else // caso não tenha mais perguntas, calcula a nota final
         {
 
             calcularNotaFinal();
@@ -242,7 +341,7 @@ public class modoJogo1 : MonoBehaviour
 
         inforRespostaTXT.text = "Pergunta " + (qtdRespondida+1) + " de " + listaPerguntas.Count;
 
-        percProgresso = (qtdRespondida+1) / perguntas.Length;
+        percProgresso = (qtdRespondida+1) / listaPerguntas.Count;
         barraProgresso.transform.localScale = new Vector3(percProgresso, 1, 1);
 
     }
@@ -273,8 +372,8 @@ public class modoJogo1 : MonoBehaviour
 
         }
 
-
-        if (notaFinal == 10){nEstrelas = 3;   }
+        //Quantidade de estrelas de acordo com a nota tirada do aluno
+        if (notaFinal == 10){nEstrelas = 3;   } 
         else if (notaFinal >= notaMinimaDuasEstrela){nEstrelas = 2;}
         else if (notaFinal >= notaMinimaUmEstrela){nEstrelas = 1;}
 
@@ -302,7 +401,7 @@ public class modoJogo1 : MonoBehaviour
 
 
 
-    IEnumerator mostrarAlternativaCorreta()
+    IEnumerator mostrarAlternativaCorreta() // corrotina repsonsável por fazer a questão correta piscar
     {
         for(int i = 0; i < qtdPiscar; i++){
             botoes[idBtnCorreto].image.color = corAcerto;
