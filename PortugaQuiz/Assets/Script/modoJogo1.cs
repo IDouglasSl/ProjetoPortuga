@@ -20,6 +20,12 @@ public class modoJogo1 : MonoBehaviour
     public Text                 altCtxt;
     public Text                 altDtxt;
 
+    [Header("Configuração das Imagens alternativas")]
+    public Image altAimg;
+    public Image altBimg;
+    public Image altCimg;
+    public Image altDimg;
+
 
     [Header("Configuração das barras")]
     public GameObject           barraProgresso;
@@ -32,6 +38,7 @@ public class modoJogo1 : MonoBehaviour
     [Header("Configuração das Modo de Jogo")]
     public bool perguntasComIMG;
     public bool utilizarAltenativa;
+    public bool utilizarAltenativaIMG;
     public bool perguntasAleatorias;
     public bool jogarComTempo;
     public float tempoResponder;
@@ -52,6 +59,13 @@ public class modoJogo1 : MonoBehaviour
     public string[]             altenativaB;
     public string[]             altenativaC;
     public string[]             altenativaD;
+
+    [Header("Configuração das alternativas IMG")]
+
+    public Sprite[] altenativaAIMG;
+    public Sprite[] altenativaBIMG;
+    public Sprite[] altenativaCIMG;
+    public Sprite[] altenativaDIMG;
 
     [Header("Configuração dos Paineis")]
     public GameObject[]         paineis;
@@ -173,12 +187,19 @@ public class modoJogo1 : MonoBehaviour
 
         
 
-        if (utilizarAltenativa)
+        if (utilizarAltenativa && !utilizarAltenativaIMG)
         {
             altAtxt.text = altenativaA[listaPerguntas[idResponder]];
             altBtxt.text = altenativaB[listaPerguntas[idResponder]];
             altCtxt.text = altenativaC[listaPerguntas[idResponder]];
             altDtxt.text = altenativaD[listaPerguntas[idResponder]];
+        }
+        else if(utilizarAltenativa && utilizarAltenativaIMG)
+        {
+            altAimg.sprite = altenativaAIMG[listaPerguntas[idResponder]];
+            altBimg.sprite = altenativaBIMG[listaPerguntas[idResponder]];
+            altCimg.sprite = altenativaCIMG[listaPerguntas[idResponder]];
+            altDimg.sprite = altenativaDIMG[listaPerguntas[idResponder]];
         }
     }
 
@@ -235,12 +256,19 @@ public class modoJogo1 : MonoBehaviour
 
          perguntaIMG.sprite = perguntasIMG[listaPerguntas[idResponder]];
 
-        if (utilizarAltenativa)
+        if (utilizarAltenativa && !utilizarAltenativaIMG)
         {
             altAtxt.text = altenativaA[listaPerguntas[idResponder]];
             altBtxt.text = altenativaB[listaPerguntas[idResponder]];
             altCtxt.text = altenativaC[listaPerguntas[idResponder]];
             altDtxt.text = altenativaD[listaPerguntas[idResponder]];
+        }
+        else if (utilizarAltenativa && utilizarAltenativaIMG)
+        {
+            altAimg.sprite = altenativaAIMG[listaPerguntas[idResponder]];
+            altBimg.sprite = altenativaBIMG[listaPerguntas[idResponder]];
+            altCimg.sprite = altenativaCIMG[listaPerguntas[idResponder]];
+            altDimg.sprite = altenativaDIMG[listaPerguntas[idResponder]];
         }
     }
 
@@ -319,12 +347,19 @@ public class modoJogo1 : MonoBehaviour
 
             }
 
-            if (utilizarAltenativa)
+            if (utilizarAltenativa && !utilizarAltenativaIMG)
             {
                 altAtxt.text = altenativaA[listaPerguntas[idResponder]];
                 altBtxt.text = altenativaB[listaPerguntas[idResponder]];
                 altCtxt.text = altenativaC[listaPerguntas[idResponder]];
                 altDtxt.text = altenativaD[listaPerguntas[idResponder]];
+            }
+            else if (utilizarAltenativa && utilizarAltenativaIMG)
+            {
+                altAimg.sprite = altenativaAIMG[listaPerguntas[idResponder]];
+                altBimg.sprite = altenativaBIMG[listaPerguntas[idResponder]];
+                altCimg.sprite = altenativaCIMG[listaPerguntas[idResponder]];
+                altDimg.sprite = altenativaDIMG[listaPerguntas[idResponder]];
             }
 
         }

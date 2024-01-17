@@ -2391,7 +2391,7 @@ MonoBehaviour:
   corErro: {r: 0.9811321, g: 0.18974723, b: 0.18974723, a: 1}
   perguntasComIMG: 1
   utilizarAltenativa: 1
-  perguntasAleatorias: 0
+  perguntasAleatorias: 1
   jogarComTempo: 1
   tempoResponder: 3
   mostrarCorreta: 1
