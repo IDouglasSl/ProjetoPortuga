@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class btnComandos : MonoBehaviour
 {
-    
+
+    public GameObject[] paineis;
 
     // crrega uma nova cena
     public void irParaCena(string nomeCena)
@@ -29,5 +30,20 @@ public class btnComandos : MonoBehaviour
         }
     }
 
+    public void configuracoes(bool onOff)
+    {
+
+        
+
+        paineis[0].SetActive(!onOff);
+        paineis[1].SetActive(onOff);
+       
+
+    }
+
+    public void zerarProgresso()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 
 }
