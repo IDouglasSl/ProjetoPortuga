@@ -11,6 +11,8 @@ public class temaInfo : MonoBehaviour
     public int                  idTema;
     public string               nomeTema;
     public Color                corTema;
+    public bool requerNotaMinima;
+    public int notaMinima;
 
 
     [Header("Configuração das Estrelas")]
@@ -25,6 +27,7 @@ public class temaInfo : MonoBehaviour
     public GameObject[]         estrela;
 
     private int                  notaFinal;
+    private Button btnTema;
 
 
     // Start is called before the first frame update
@@ -38,8 +41,29 @@ public class temaInfo : MonoBehaviour
 
         estrelas(); // chama o método estrelas
 
+        btnTema = GetComponent<Button>();
+        
+        verificarNotaMinima();
+
     }
 
+    void verificarNotaMinima()
+    {
+        btnTema.interactable = false;
+        if (requerNotaMinima)
+        {
+            int notaTemaAnterior = PlayerPrefs.GetInt("notaFinal_" + (idTema-1).ToString());
+            if(notaTemaAnterior >= notaMinima)
+            {
+
+                btnTema.interactable = true;
+            }
+        }
+        else
+        {
+            btnTema.interactable = true;
+        }
+    }
 
     public void selecionarTema() // função para mudar o tema selecionado e a cor
     {
