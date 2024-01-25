@@ -1859,6 +1859,8 @@ MonoBehaviour:
   idTema: 6
   nomeTema: Jogos antigos Megadrive
   corTema: {r: 0.8867924, g: 0.33882165, b: 0.34424505, a: 1}
+  requerNotaMinima: 0
+  notaMinima: 0
   notaMinimaUmEstrela: 5
   notaMinimaDuasEstrela: 7
   idTemaTxt: {fileID: 490180343}
@@ -3577,6 +3579,8 @@ MonoBehaviour:
   idTema: 2
   nomeTema: Jogos antigos Megadrive
   corTema: {r: 0.8867924, g: 0.33882165, b: 0.34424505, a: 1}
+  requerNotaMinima: 1
+  notaMinima: 7
   notaMinimaUmEstrela: 5
   notaMinimaDuasEstrela: 7
   idTemaTxt: {fileID: 836076793}
@@ -3737,6 +3741,8 @@ MonoBehaviour:
   idTema: 4
   nomeTema: "Pok\xE9mons"
   corTema: {r: 0.9245283, g: 0.4966166, b: 0.24857599, a: 1}
+  requerNotaMinima: 1
+  notaMinima: 7
   notaMinimaUmEstrela: 5
   notaMinimaDuasEstrela: 7
   idTemaTxt: {fileID: 690618264}
@@ -4103,6 +4109,8 @@ MonoBehaviour:
   idTema: 1
   nomeTema: Jogos antigos SNES
   corTema: {r: 0.43943575, g: 0.52552265, b: 0.745283, a: 1}
+  requerNotaMinima: 0
+  notaMinima: 7
   notaMinimaUmEstrela: 5
   notaMinimaDuasEstrela: 7
   idTemaTxt: {fileID: 2036946678}
@@ -4358,6 +4366,8 @@ MonoBehaviour:
   idTema: 3
   nomeTema: "Bandeira de Pa\xEDses"
   corTema: {r: 1, g: 0.48584908, b: 0.50143063, a: 1}
+  requerNotaMinima: 1
+  notaMinima: 7
   notaMinimaUmEstrela: 5
   notaMinimaDuasEstrela: 7
   idTemaTxt: {fileID: 1349435874}
@@ -5140,6 +5150,8 @@ MonoBehaviour:
   idTema: 5
   nomeTema: Jogos antigos SNES
   corTema: {r: 0.43943575, g: 0.52552265, b: 0.745283, a: 1}
+  requerNotaMinima: 0
+  notaMinima: 0
   notaMinimaUmEstrela: 5
   notaMinimaDuasEstrela: 7
   idTemaTxt: {fileID: 71022854}

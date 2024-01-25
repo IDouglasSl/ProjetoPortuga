@@ -91,9 +91,14 @@ public class modoJogo1 : MonoBehaviour
     private int                 idBtnCorreto; // qual botão´será o correto
     private bool                exibindoCorreta; // vai evitar que o qualquer botão seja pressionado enquanto a corrotina mostra a resposta certa
 
+
+    private soundController soundController;
+
     // Start is called before the first frame update
     void Start()
     {
+        soundController = FindObjectOfType(typeof(soundController)) as soundController;
+
         idTema = PlayerPrefs.GetInt("idTema");
         notaMinimaUmEstrela = PlayerPrefs.GetInt("notaMinUmEstrela");
         notaMinimaDuasEstrela = PlayerPrefs.GetInt("notaMinDuasEstrelas");
@@ -282,6 +287,11 @@ public class modoJogo1 : MonoBehaviour
         if (correta[listaPerguntas[idResponder]] == alternativa)
         {
             qtdAcertos += 1;
+            soundController.playAcerto();
+        }
+        else
+        {
+            soundController.playErro();
         }
 
         // indica qual a opção é a correta
@@ -316,7 +326,9 @@ public class modoJogo1 : MonoBehaviour
         }
         else // chama aproxima pergunta
         {
-            proximaPergunta();
+            exibindoCorreta = true;
+            StartCoroutine("aguardarProxima");
+           
         }
 
         
@@ -434,7 +446,13 @@ public class modoJogo1 : MonoBehaviour
         paineis[1].SetActive(true);
     }
 
-
+    IEnumerator aguardarProxima()
+    {
+        
+        yield return new WaitForSeconds(1f);
+        exibindoCorreta = false;
+        proximaPergunta();
+    }
 
     IEnumerator mostrarAlternativaCorreta() // corrotina repsonsável por fazer a questão correta piscar
     {
